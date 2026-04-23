@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Compass, ShieldPlus } from 'lucide-react';
+import { Compass, ShieldPlus, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -10,8 +11,19 @@ export default function Navbar() {
   return (
     <nav className="navbar glass-panel">
       <div className="container nav-container">
-        <Link href="/" className="logo">
-          <span className="text-gradient">Skillizee</span> Competitions
+        <Link href="/" className="logo-v2">
+          <motion.div 
+            initial={{ rotate: -10 }}
+            animate={{ rotate: 0 }}
+            whileHover={{ rotate: 15, scale: 1.1 }}
+            className="logo-icon-box"
+          >
+            <Sparkles size={18} fill="currentColor" />
+          </motion.div>
+          <div className="logo-text-v2">
+            <span className="brand-name">SkilliZee</span>
+            <span className="product-tag">Competitions</span>
+          </div>
         </Link>
         
         <div className="nav-links">
