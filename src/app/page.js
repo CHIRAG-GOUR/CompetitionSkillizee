@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getCompetitions } from '@/lib/services';
 import CompetitionCard from '@/components/CompetitionCard';
-import { Search, SlidersHorizontal, Globe, Loader2, Sparkles, Star, ArrowRight, Trophy, ShieldCheck, Zap, BookOpen, Lightbulb, Rocket, Cpu } from 'lucide-react';
+import { Search, SlidersHorizontal, Globe, Loader2, Sparkles, Star, ArrowRight, Trophy, ShieldCheck, Zap, BookOpen, Lightbulb, Rocket, Cpu, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './page.css';
 
@@ -213,7 +213,13 @@ export default function Home() {
 
 
         {trendingComps.length > 0 && (
-          <section className="trending-section-v2 mt-32 pt-20 border-t border-slate-200">
+          <motion.section 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="trending-section-v2 mt-32 pt-20 border-t border-slate-200"
+          >
             <div className="feed-header text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50 border border-amber-100 mb-5">
                 <Star className="text-amber-500" size={14} />
@@ -223,18 +229,56 @@ export default function Home() {
               <p className="section-desc-v2">Competitions with the highest student engagement and impact score.</p>
             </div>
             <div className="competitions-grid-v2">
-              {trendingComps.map((comp) => (
-                <CompetitionCard key={comp.id} competition={comp} />
+              {trendingComps.map((comp, idx) => (
+                <motion.div
+                  key={comp.id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <CompetitionCard competition={comp} />
+                </motion.div>
               ))}
             </div>
-          </section>
+          </motion.section>
         )}
       </main>
 
       <footer className="sk-footer">
-        <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col items-center">
-          <div className="footer-tagline">Real Skills. Real World. Real Impact.</div>
-          <p className="copyright">&copy; 2026 SkilliZee.io - India's #1 Experiential Learning Platform</p>
+        <div className="container py-20 flex flex-col items-center text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="footer-brand mb-8"
+          >
+            <div className="logo-icon-box mx-auto mb-4 scale-125">
+              <Sparkles size={20} fill="currentColor" />
+            </div>
+            <h2 className="footer-logo-text">SKILLIZEE</h2>
+            <p className="footer-tagline">Real Skills. Real World. Real Impact.</p>
+          </motion.div>
+
+          <div className="footer-links-centered mb-12">
+            <a href="#" className="f-link">Privacy Policy</a>
+            <span className="dot">•</span>
+            <a href="#" className="f-link">Terms of Service</a>
+            <span className="dot">•</span>
+            <a href="#" className="f-link">Contact Us</a>
+            <span className="dot">•</span>
+            <a href="#" className="f-link">About Us</a>
+          </div>
+
+          <div className="social-row mb-12">
+            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Twitter size={20} /></motion.a>
+            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Linkedin size={20} /></motion.a>
+            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Instagram size={20} /></motion.a>
+          </div>
+
+          <div className="footer-bottom pt-8 border-t border-slate-100 w-full max-w-2xl">
+            <p className="copyright">&copy; 2026 SkilliZee.io - India's #1 Experiential Learning Platform</p>
+          </div>
         </div>
       </footer>
     </div>
