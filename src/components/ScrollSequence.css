@@ -37,7 +37,14 @@
   text-transform: uppercase;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  color: white;
+  -webkit-text-stroke: 2px black;
+  text-shadow: 
+    3px 3px 0 #000,
+    -1px -1px 0 #000,  
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
 }
 
 .hero-subtitle {

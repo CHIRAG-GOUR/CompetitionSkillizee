@@ -1,0 +1,52 @@
+.cursor-dot {
+  position: fixed;
+  top: -4px;
+  left: -4px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--primary-blue);
+  border-radius: 50%;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: -15px;
+  left: -15px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--primary-blue);
+  border-radius: 50%;
+  z-index: 9998;
+  pointer-events: none;
+  transition: width 0.3s, height 0.3s, top 0.3s, left 0.3s, background-color 0.3s;
+}
+
+.cursor-ring.active {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  left: -30px;
+  background-color: rgba(30, 99, 208, 0.1);
+  border-color: rgba(30, 99, 208, 0.5);
+}
+
+.mouse-spotlight {
+  position: fixed;
+  top: -250px;
+  left: -250px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(30, 99, 208, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 1; /* Behind content, above grid */
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+@media (max-width: 1024px) {
+  .cursor-dot, .cursor-ring, .mouse-spotlight {
+    display: none;
+  }
+}

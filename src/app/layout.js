@@ -1,5 +1,7 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import CustomCursor from "@/components/CustomCursor";
+import "@/components/CustomCursor.css";
 
 export const metadata = {
   title: "Skillizee Competitions",
@@ -10,6 +12,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <CustomCursor />
         <div className="bg-gradient"></div>
         <Navbar />
         <main>

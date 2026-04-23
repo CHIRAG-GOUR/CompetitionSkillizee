@@ -213,19 +213,29 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-/* Centered Footer */
+/* Elite Dark Footer */
 .sk-footer {
-  background: white;
-  border-top: 1px solid var(--glass-border);
+  background: #0a0a20; /* Deep Navy */
+  color: white;
+  border-top: 1px solid rgba(255,255,255,0.05);
   position: relative;
   z-index: 10;
 }
 
 .footer-logo-text {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 900;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   margin-bottom: 0.5rem;
+  background: linear-gradient(to right, white, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-tagline {
+  color: #94a3b8;
+  font-weight: 500;
+  letter-spacing: 0.1em;
 }
 
 .footer-links-centered {
@@ -239,45 +249,54 @@
 .f-link {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: #94a3b8;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.2s;
 }
 
 .f-link:hover {
-  color: var(--primary-blue);
+  color: white;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
 }
 
 .dot {
-  color: var(--glass-border);
+  color: rgba(255,255,255,0.1);
 }
 
 .social-row {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .social-circle {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255,255,255,0.1);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-secondary);
-  transition: all 0.3s;
-  background: white;
+  color: #94a3b8;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255,255,255,0.02);
 }
 
 .social-circle:hover {
-  border-color: var(--primary-blue);
-  color: var(--primary-blue);
-  box-shadow: 0 4px 12px rgba(30, 99, 208, 0.1);
+  border-color: white;
+  color: white;
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
 .footer-bottom {
   text-align: center;
+  opacity: 0.5;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 640px) {

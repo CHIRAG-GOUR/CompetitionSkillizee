@@ -47,6 +47,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+@media (min-width: 1025px) {
+  body, a, button, input, select {
+    cursor: none !important;
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-weight: 900; /* font-black */
   letter-spacing: -0.02em;

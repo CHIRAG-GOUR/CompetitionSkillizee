@@ -248,9 +248,10 @@ export default function Home() {
             </div>
           </motion.section>
         )}
-      </div>
+      </main>
+    </div>
 
-      <footer className="sk-footer">
+    <footer className="sk-footer">
         <div className="container py-20 flex flex-col items-center text-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -276,12 +277,12 @@ export default function Home() {
           </div>
 
           <div className="social-row mb-12">
-            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Send size={20} /></motion.a>
-            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Users size={20} /></motion.a>
-            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Camera size={20} /></motion.a>
+            <a href="#" className="social-circle"><Send size={20} /></a>
+            <a href="#" className="social-circle"><Users size={20} /></a>
+            <a href="#" className="social-circle"><Camera size={20} /></a>
           </div>
 
-          <div className="footer-bottom pt-8 border-t border-slate-100 w-full max-w-2xl">
+          <div className="footer-bottom pt-8 border-t border-white/5 w-full max-w-2xl">
             <p className="copyright">&copy; 2026 SkilliZee.io - India's #1 Experiential Learning Platform</p>
           </div>
         </div>
