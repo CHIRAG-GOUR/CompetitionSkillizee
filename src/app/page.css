@@ -2,7 +2,12 @@
   min-height: 100vh;
   position: relative;
   background-color: var(--white);
-  padding-top: 5rem;
+}
+
+.main-content-wrapper {
+  position: relative;
+  z-index: 5;
+  background: white; /* Ensure it covers the sticky canvas */
 }
 
 /* Hero Section */

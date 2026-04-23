@@ -1,12 +1,25 @@
 .navbar {
-  position: sticky;
-  top: 1rem;
-  z-index: 100;
-  margin: 1rem auto;
-  width: 95%;
+  position: fixed; /* Fixed so it can overlap correctly when visible */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 100%;
   max-width: var(--max-width);
   padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-full);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.hidden {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-20px);
+  pointer-events: none;
+}
+
+.navbar.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(1rem);
+  pointer-events: auto;
 }
 
 .nav-container {

@@ -4,7 +4,9 @@ import { useState, useEffect, useRef } from 'react';
 import { getCompetitions } from '@/lib/services';
 import CompetitionCard from '@/components/CompetitionCard';
 import { Search, SlidersHorizontal, Globe, Loader2, Sparkles, Star, ArrowRight, Trophy, ShieldCheck, Zap, BookOpen, Lightbulb, Rocket, Cpu, Send, Users, Camera } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
+import ScrollSequence from '@/components/ScrollSequence';
+import '@/components/ScrollSequence.css';
 import './page.css';
 
 export default function Home() {
@@ -126,20 +128,23 @@ export default function Home() {
 
   return (
     <div className="home-v2">
-      {/* Background Decorations */}
-      <div className="grid-bg" />
-      <div className="blur-blob" />
+      <ScrollSequence totalFrames={300} />
       
-      <section className="hero-v2-section">
-        <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="hero-title-v2"
-          >
-            Knowledge is Just the Foundation.
-            <div className="hero-divider-yellow"></div>
+      <div className="main-content-wrapper">
+        {/* Background Decorations */}
+        <div className="grid-bg" />
+        <div className="blur-blob" />
+        
+        <section className="hero-v2-section">
+          <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="hero-title-v2"
+            >
+              Knowledge is Just the Foundation.
+              <div className="hero-divider-yellow"></div>
             <span className="hero-word-alt">Competition</span> <br/>
             is Where Greatness is Proven.
           </motion.h1>
@@ -243,7 +248,7 @@ export default function Home() {
             </div>
           </motion.section>
         )}
-      </main>
+      </div>
 
       <footer className="sk-footer">
         <div className="container py-20 flex flex-col items-center text-center">

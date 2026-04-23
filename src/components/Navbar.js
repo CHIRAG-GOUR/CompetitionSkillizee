@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Compass, ShieldPlus, Sparkles } from 'lucide-react';
@@ -7,9 +8,23 @@ import './Navbar.css';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show navbar only after scrolling past the 100vh sequence
+      if (window.scrollY > window.innerHeight * 0.8) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="navbar glass-panel">
+    <nav className={`navbar glass-panel ${isVisible ? 'visible' : 'hidden'}`}>
       <div className="container nav-container">
         <Link href="/" className="logo-v2">
           <motion.div 
