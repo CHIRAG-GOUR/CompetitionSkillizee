@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { getCompetitions } from '@/lib/services';
 import CompetitionCard from '@/components/CompetitionCard';
-import { Search, SlidersHorizontal, Globe, Loader2, Sparkles, Star, ArrowRight, Trophy, ShieldCheck, Zap, BookOpen, Lightbulb, Rocket, Cpu, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Search, SlidersHorizontal, Globe, Loader2, Sparkles, Star, ArrowRight, Trophy, ShieldCheck, Zap, BookOpen, Lightbulb, Rocket, Cpu, Send, Users, Camera } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './page.css';
 
@@ -271,9 +271,9 @@ export default function Home() {
           </div>
 
           <div className="social-row mb-12">
-            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Twitter size={20} /></motion.a>
-            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Linkedin size={20} /></motion.a>
-            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Instagram size={20} /></motion.a>
+            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Send size={20} /></motion.a>
+            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Users size={20} /></motion.a>
+            <motion.a whileHover={{ y: -5 }} href="#" className="social-circle"><Camera size={20} /></motion.a>
           </div>
 
           <div className="footer-bottom pt-8 border-t border-slate-100 w-full max-w-2xl">
