@@ -82,8 +82,31 @@ export default function ScrollSequence({ totalFrames = 300 }) {
           style={{ opacity: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]) }}
           className="sequence-content"
         >
-          <h1 className="hero-title">Experience the Evolution</h1>
-          <p className="hero-subtitle">Scroll to discover the system anatomy.</p>
+          <motion.h1 className="hero-title">
+            {"Experience the Evolution".split("").map((char, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                transition={{ 
+                  duration: 0.8, 
+                  delay: index * 0.03,
+                  ease: [0.2, 0.65, 0.3, 0.9]
+                }}
+                style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+            className="hero-subtitle"
+          >
+            Scroll to discover the system anatomy.
+          </motion.p>
         </motion.div>
       </div>
     </div>
