@@ -398,6 +398,80 @@
   width: fit-content;
 }
 
+/* Mobile Responsiveness Polish */
+@media (max-width: 768px) {
+  .hero-v2-section {
+    padding: 4rem 0 2rem;
+  }
+  
+  .hero-title-v2 {
+    font-size: 2rem !important;
+  }
+  
+  .hero-word-alt {
+    font-size: 3.5rem !important;
+  }
+  
+  .hero-divider-yellow {
+    width: 80px;
+    height: 6px;
+  }
+  
+  .search-box-v2 {
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: var(--radius-xl);
+  }
+  
+  .search-box-v2 input {
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  
+  .btn-primary-v2 {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .accred-logos {
+    gap: 0.5rem;
+  }
+  
+  .accred-box {
+    font-size: 0.6rem;
+    padding: 0.4rem 0.75rem;
+  }
+  
+  .section-title-v2 {
+    font-size: 2rem !important;
+  }
+  
+  .competitions-grid-v2 {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .sk-footer {
+    margin-top: 4rem;
+  }
+
+  .footer-logo-text {
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+  }
+
+  .footer-links-centered {
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .dot {
+    display: none;
+  }
+}
+
 .wf-connector {
   color: var(--glass-border);
 }
