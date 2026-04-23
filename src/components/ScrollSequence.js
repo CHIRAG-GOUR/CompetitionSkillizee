@@ -6,7 +6,6 @@ export default function ScrollSequence({ totalFrames = 300 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const [images, setImages] = useState([]);
-  const [loadedCount, setLoadedCount] = useState(0);
 
   // Scroll tracking
   const { scrollYProgress } = useScroll({
@@ -27,10 +26,6 @@ export default function ScrollSequence({ totalFrames = 300 }) {
         const img = new Image();
         const frameNum = String(i).padStart(3, '0');
         img.src = `/header/ezgif-frame-${frameNum}.jpg`;
-        img.onload = () => {
-          loaded++;
-          setLoadedCount(loaded);
-        };
         loadedImages[i] = img;
       }
       setImages(loadedImages);
@@ -82,14 +77,6 @@ export default function ScrollSequence({ totalFrames = 300 }) {
       <div className="sticky-wrapper">
         <canvas ref={canvasRef} className="sequence-canvas" />
         
-        {/* Loading Overlay */}
-        {loadedCount < totalFrames && (
-          <div className="loading-overlay">
-            <div className="loader-ring"></div>
-            <p>Loading Experience {Math.round((loadedCount/totalFrames)*100)}%</p>
-          </div>
-        )}
-
         {/* Content Overlay */}
         <motion.div 
           style={{ opacity: useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]) }}
