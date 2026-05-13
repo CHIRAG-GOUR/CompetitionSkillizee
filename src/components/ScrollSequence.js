@@ -83,20 +83,24 @@ export default function ScrollSequence({ totalFrames = 300 }) {
           className="sequence-content"
         >
           <motion.h1 className="hero-title">
-            {"Experience the Evolution".split("").map((char, index) => (
-              <motion.span
-                key={index}
-                initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ 
-                  duration: 0.8, 
-                  delay: index * 0.03,
-                  ease: [0.2, 0.65, 0.3, 0.9]
-                }}
-                style={{ display: 'inline-block', whiteSpace: char === ' ' ? 'pre' : 'normal' }}
-              >
-                {char}
-              </motion.span>
+            {"Experience the Evolution".split(" ").map((word, wordIndex) => (
+              <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap', marginRight: '0.3em' }}>
+                {word.split("").map((char, charIndex) => (
+                  <motion.span
+                    key={charIndex}
+                    initial={{ opacity: 0, y: 50, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                    transition={{ 
+                      duration: 0.8, 
+                      delay: (wordIndex * 5 + charIndex) * 0.03,
+                      ease: [0.2, 0.65, 0.3, 0.9]
+                    }}
+                    style={{ display: 'inline-block' }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
             ))}
           </motion.h1>
           <motion.p 

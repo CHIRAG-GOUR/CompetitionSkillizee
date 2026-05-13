@@ -47,21 +47,30 @@ export async function getCompetitionById(id) {
 }
 
 export async function getCompetitions() {
+  let localAIResults = [];
+  if (typeof window !== 'undefined') {
+    localAIResults = JSON.parse(localStorage.getItem('discovery_cache') || '[]');
+  }
+
   if (!db) {
-    console.log("Using mock competitions data");
-    // Sort mock data: Priority items first
-    return [...MOCK_COMPETITIONS].sort((a, b) => (b.isPriority ? 1 : 0) - (a.isPriority ? 1 : 0));
+    console.log("Using mock and local competitions data");
+    const all = [...localAIResults, ...MOCK_COMPETITIONS];
+    return all.sort((a, b) => (b.isPriority ? 1 : 0) - (a.isPriority ? 1 : 0));
   }
   
   try {
-    // In production Firestore, we sort by isPriority then createdAt
     const q = query(collection(db, 'competitions'), orderBy('isPriority', 'desc'), orderBy('createdAt', 'desc'));
     const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const firestoreResults = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    
+    // Combine Firestore with Local AI results, de-duplicate by title
+    const combined = [...localAIResults, ...firestoreResults];
+    return Array.from(new Map(combined.map(item => [item.title, item])).values())
+      .sort((a, b) => (b.isPriority ? 1 : 0) - (a.isPriority ? 1 : 0));
   } catch (error) {
     console.error("Error fetching competitions: ", error);
-    // Sort fallback data
-    return [...MOCK_COMPETITIONS].sort((a, b) => (b.isPriority ? 1 : 0) - (a.isPriority ? 1 : 0));
+    const all = [...localAIResults, ...MOCK_COMPETITIONS];
+    return all.sort((a, b) => (b.isPriority ? 1 : 0) - (a.isPriority ? 1 : 0));
   }
 }
 

@@ -14,6 +14,7 @@ export default function Home() {
   const [filteredComps, setFilteredComps] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isLiveSearching, setIsLiveSearching] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,6 +64,41 @@ export default function Home() {
       }
     } catch (e) {
       console.warn("Auto-scout silented.");
+    }
+  };
+
+  const handleRefreshResearch = async () => {
+    setIsRefreshing(true);
+    try {
+      const themes = [
+        'Prestigious student competitions 2026',
+        'Top Indian student competitions 2026',
+        'Jaipur youth and student challenges 2026',
+        'International youth entrepreneurship India 2026',
+        'National STEM and robotics contests India 2026',
+        'Government of India student innovation awards 2026',
+        'Major environmental youth challenges Rajasthan 2026'
+      ];
+      const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+
+      const response = await fetch('/api/search', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: randomTheme })
+      });
+      const liveResults = await response.json();
+      if (liveResults && !liveResults.error) {
+        setCompetitions(prev => {
+          // Put new results at the very beginning
+          const newComps = [...liveResults, ...prev];
+          // De-duplicate by title (keep the first occurrence which is the newest)
+          return Array.from(new Map(newComps.map(item => [item.title, item])).values());
+        });
+      }
+    } catch (e) {
+      console.error("Refresh failed", e);
+    } finally {
+      setIsRefreshing(false);
     }
   };
 
@@ -201,6 +237,24 @@ export default function Home() {
           </div>
           <h2 className="section-title-v2">Latest Opportunities</h2>
           <p className="section-desc-v2">AI-Scouted prestigious competitions for your student portfolio.</p>
+          
+          <button 
+            onClick={handleRefreshResearch} 
+            className="refresh-btn mt-6"
+            disabled={isRefreshing}
+          >
+            {isRefreshing ? (
+              <>
+                <Loader2 className="animate-spin" size={16} />
+                <span>Scanning Global Databases...</span>
+              </>
+            ) : (
+              <>
+                <Sparkles size={16} />
+                <span>Refresh Research</span>
+              </>
+            )}
+          </button>
         </div>
 
         {loading ? (
@@ -249,9 +303,8 @@ export default function Home() {
           </motion.section>
         )}
       </main>
-    </div>
 
-    <footer className="sk-footer">
+      <footer className="sk-footer">
         <div className="container py-20 flex flex-col items-center text-center">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -287,6 +340,7 @@ export default function Home() {
           </div>
         </div>
       </footer>
+    </div>
     </div>
   );
 }

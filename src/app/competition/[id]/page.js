@@ -30,8 +30,9 @@ export default function CompetitionDetails() {
 
   useEffect(() => {
     async function fetchComp() {
-      const comps = await getCompetitions();
-      const comp = comps.find(c => c.id === id);
+      // Import getCompetitionById which handles discovery_cache
+      const { getCompetitionById, getRelatedCompetitions } = await import('@/lib/services');
+      const comp = await getCompetitionById(id);
       setCompetition(comp);
       
       if (comp) {
@@ -189,38 +190,40 @@ export default function CompetitionDetails() {
                 <div className="success-icon"><Zap size={40} /></div>
                 <h3>Locked & Loaded!</h3>
                 <p>Your details are secured. Now, head over to the official site to complete your journey.</p>
-                <a href={competition.registrationLink} target="_blank" className="cta-btn primary">
+                <a href={competition.registrationLink || `https://www.google.com/search?q=${encodeURIComponent(competition.title + ' official website')}`} target="_blank" className="cta-btn primary">
                   Go to Competition Website <ExternalLink size={18} />
                 </a>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="rich-form">
-                <div className="input-group">
-                  <label>Full Name</label>
-                  <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="John Doe" />
-                </div>
-                <div className="input-group">
-                  <label>Email Address</label>
-                  <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="john@example.com" />
-                </div>
-                <div className="input-group">
-                  <label>WhatsApp Number</label>
-                  <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} placeholder="+91..." />
-                </div>
-                <div className="form-row">
+              <div className="form-wrapper">
+                <form onSubmit={handleSubmit} className="rich-form">
                   <div className="input-group">
-                    <label>School</label>
-                    <input type="text" name="school" required value={formData.school} onChange={handleChange} />
+                    <label>Full Name</label>
+                    <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder="John Doe" />
                   </div>
                   <div className="input-group">
-                    <label>Grade</label>
-                    <input type="text" name="grade" required value={formData.grade} onChange={handleChange} />
+                    <label>Email Address</label>
+                    <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="john@example.com" />
                   </div>
-                </div>
-                <button type="submit" className="cta-btn primary" disabled={submitting}>
-                  {submitting ? 'Encrypting Details...' : 'Register for Competition'}
-                </button>
-              </form>
+                  <div className="input-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} placeholder="+91..." />
+                  </div>
+                  <div className="form-row">
+                    <div className="input-group">
+                      <label>School</label>
+                      <input type="text" name="school" required value={formData.school} onChange={handleChange} />
+                    </div>
+                    <div className="input-group">
+                      <label>Grade</label>
+                      <input type="text" name="grade" required value={formData.grade} onChange={handleChange} />
+                    </div>
+                  </div>
+                  <button type="submit" className="cta-btn primary" disabled={submitting}>
+                    {submitting ? 'Encrypting Details...' : 'Register for Competition'}
+                  </button>
+                </form>
+              </div>
             )}
           </div>
 
