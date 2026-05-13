@@ -9,7 +9,8 @@ import {
   createAdmin, 
   getAdmins,
   deleteCompetition,
-  updateCompetition
+  updateCompetition,
+  getAdminCompetitions
 } from '@/lib/services';
 import { 
   Plus, 
@@ -30,7 +31,8 @@ import {
   ShieldAlert,
   Loader2,
   Star,
-  Eye
+  Eye,
+  CheckCircle
 } from 'lucide-react';
 import CompetitionCard from '@/components/CompetitionCard';
 import './admin.css';
@@ -122,7 +124,7 @@ export default function AdminDashboard() {
         const data = await getRegistrations();
         setRegistrations(data);
       } else if (activeTab === 'list' || activeTab === 'add') {
-        const data = await getCompetitions();
+        const data = await getAdminCompetitions();
         setCompetitions(data);
       } else if (activeTab === 'admins') {
         const data = await getAdmins();
@@ -148,6 +150,15 @@ export default function AdminDashboard() {
   const handleToggleTrending = async (comp) => {
     try {
       await updateCompetition(comp.id, { isTrending: !comp.isTrending });
+      loadData();
+    } catch (err) {
+      alert("Update failed");
+    }
+  };
+
+  const handleToggleApproval = async (comp) => {
+    try {
+      await updateCompetition(comp.id, { isApproved: !comp.isApproved });
       loadData();
     } catch (err) {
       alert("Update failed");
@@ -212,7 +223,7 @@ export default function AdminDashboard() {
         });
       }
     } catch (err) {
-      alert("AI Scan failed");
+      alert("System Scan failed");
     } finally {
       setFetching(false);
     }
@@ -290,7 +301,7 @@ export default function AdminDashboard() {
             <div className="admin-form-section">
               <div className="section-header"><h2>Publish Competition</h2><span className="badge">Priority Listing</span></div>
               <div className="quick-fetch glass-panel">
-                <p>Already have a URL? Let Gemini fill the form for you.</p>
+                <p>Already have a URL? Let our discovery engine fill the form for you.</p>
                 <div className="input-with-action">
                   <input type="text" placeholder="Paste competition website URL..." value={quickUrl} onChange={(e) => setQuickUrl(e.target.value)} />
                   <button onClick={handleQuickFetch} className={`fetch-btn ${fetching ? 'fetching' : ''}`} disabled={fetching}>
@@ -330,9 +341,13 @@ export default function AdminDashboard() {
             {loading ? <div className="loading-center"><Loader2 className="animate-spin" /></div> : (
               <div className="manage-grid">
                 {competitions.map(comp => (
-                  <div key={comp.id} className={`manage-card glass-panel ${comp.isPriority ? 'priority' : ''}`}>
+                  <div key={comp.id} className={`manage-card glass-panel ${comp.isPriority ? 'priority' : ''} ${!comp.isApproved ? 'pending' : ''}`}>
                     <div className="manage-card-img" style={{ backgroundImage: `url(${comp.imageUrl})` }}>
-                      {comp.isPriority && <span className="m-badge approved">Approved</span>}
+                      {comp.isApproved ? (
+                        comp.isPriority && <span className="m-badge approved">Priority</span>
+                      ) : (
+                        <span className="m-badge pending">Pending</span>
+                      )}
                       {comp.isTrending && <span className="m-badge trending">Trending</span>}
                     </div>
                     <div className="manage-card-content">
@@ -342,9 +357,16 @@ export default function AdminDashboard() {
                         <div className="meta-tags"><span>{comp.location}</span><span>•</span><span>{comp.isFree ? 'Free' : `₹${comp.price}`}</span></div>
                       </div>
                       <div className="manage-actions">
-                        <button className={`action-btn ${comp.isPriority ? 'active' : ''}`} onClick={() => handleTogglePriority(comp)}><ShieldCheck size={18} /></button>
-                        <button className={`action-btn ${comp.isTrending ? 'active' : ''}`} onClick={() => handleToggleTrending(comp)}><Star size={18} /></button>
-                        <button className="action-btn delete" onClick={() => handleDelete(comp.id)}><Trash2 size={18} /></button>
+                        <button 
+                          className={`action-btn ${comp.isApproved ? 'active' : ''}`} 
+                          onClick={() => handleToggleApproval(comp)}
+                          title={comp.isApproved ? "Unapprove" : "Approve & Publish"}
+                        >
+                          <CheckCircle size={18} />
+                        </button>
+                        <button className={`action-btn ${comp.isPriority ? 'active' : ''}`} onClick={() => handleTogglePriority(comp)} title="Set Priority"><ShieldCheck size={18} /></button>
+                        <button className={`action-btn ${comp.isTrending ? 'active' : ''}`} onClick={() => handleToggleTrending(comp)} title="Set Trending"><Star size={18} /></button>
+                        <button className="action-btn delete" onClick={() => handleDelete(comp.id)} title="Delete Forever"><Trash2 size={18} /></button>
                       </div>
                     </div>
                   </div>

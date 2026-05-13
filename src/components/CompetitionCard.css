@@ -68,7 +68,7 @@
 
 .badge-pill.priority { background: var(--primary-navy); color: white; border: 1px solid rgba(255, 255, 255, 0.2); }
 .badge-pill.trending { background: #f59e0b; color: white; }
-.badge-pill.ai { background: var(--primary-blue); color: white; }
+.badge-pill.discovery { background: var(--primary-blue); color: white; }
 
 .card-body {
   padding: 1.5rem;

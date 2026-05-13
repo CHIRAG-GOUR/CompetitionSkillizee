@@ -588,6 +588,11 @@
 
 .m-badge.approved { background: var(--accent-primary); color: white; }
 .m-badge.trending { background: #f59e0b; color: white; }
+.m-badge.pending { background: #f59e0b; color: white; }
+
+.manage-card.pending {
+  border-left: 4px solid #f59e0b;
+}
 
 .manage-card-content {
   padding: 1.25rem 2rem;

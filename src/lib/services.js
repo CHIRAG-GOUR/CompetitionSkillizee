@@ -59,7 +59,12 @@ export async function getCompetitions() {
   }
   
   try {
-    const q = query(collection(db, 'competitions'), orderBy('isPriority', 'desc'), orderBy('createdAt', 'desc'));
+    const q = query(
+      collection(db, 'competitions'), 
+      where('isApproved', '==', true),
+      orderBy('isPriority', 'desc'), 
+      orderBy('createdAt', 'desc')
+    );
     const querySnapshot = await getDocs(q);
     const firestoreResults = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
@@ -71,6 +76,18 @@ export async function getCompetitions() {
     console.error("Error fetching competitions: ", error);
     const all = [...localAIResults, ...MOCK_COMPETITIONS];
     return all.sort((a, b) => (b.isPriority ? 1 : 0) - (a.isPriority ? 1 : 0));
+  }
+}
+
+export async function getAdminCompetitions() {
+  if (!db) return [];
+  try {
+    const q = query(collection(db, 'competitions'), orderBy('createdAt', 'desc'));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error("Error fetching admin competitions: ", error);
+    return [];
   }
 }
 

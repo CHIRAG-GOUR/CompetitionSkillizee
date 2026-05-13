@@ -71,20 +71,20 @@ export default function Home() {
     setIsRefreshing(true);
     try {
       const themes = [
-        'Prestigious student competitions 2026',
-        'Top Indian student competitions 2026',
-        'Jaipur youth and student challenges 2026',
-        'International youth entrepreneurship India 2026',
-        'National STEM and robotics contests India 2026',
-        'Government of India student innovation awards 2026',
-        'Major environmental youth challenges Rajasthan 2026'
+        'India National Level school competitions 2026 K-12',
+        'Prestigious Indian Olympiads for school students 2026',
+        'Top science and innovation contests for kids India 2026',
+        'Government of India National school level hackathons 2026',
+        'Rajasthan state school innovation summits 2026 iStart',
+        'National level creative writing and arts for K-12 India',
+        'School level robotics and STEM championships India 2026'
       ];
       const randomTheme = themes[Math.floor(Math.random() * themes.length)];
 
       const response = await fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: randomTheme })
+        body: JSON.stringify({ query: randomTheme, isAutoResearch: true })
       });
       const liveResults = await response.json();
       if (liveResults && !liveResults.error) {
@@ -212,7 +212,7 @@ export default function Home() {
               />
               <button onClick={handleLiveSearch} className="btn-primary-v2" disabled={isLiveSearching}>
                 {isLiveSearching ? <Loader2 className="animate-spin" size={20} /> : <Zap size={20} />}
-                <span>Deep Scout</span>
+                <span>Direct Discovery</span>
               </button>
             </div>
             
@@ -228,7 +228,7 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
+ 
       <main className="container py-20">
         <div className="feed-header text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-5">
@@ -236,7 +236,7 @@ export default function Home() {
             <span className="text-xs font-bold tracking-[0.18em] text-blue-700 uppercase">Live Discovery Feed</span>
           </div>
           <h2 className="section-title-v2">Latest Opportunities</h2>
-          <p className="section-desc-v2">AI-Scouted prestigious competitions for your student portfolio.</p>
+          <p className="section-desc-v2">Skillizee Verified prestigious competitions for your student portfolio.</p>
           
           <button 
             onClick={handleRefreshResearch} 

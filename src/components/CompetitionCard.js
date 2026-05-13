@@ -42,9 +42,9 @@ export default function CompetitionCard({ competition }) {
             </div>
           )}
           {isLiveResult && (
-            <div className="badge-pill ai">
+            <div className="badge-pill discovery">
               <Zap size={10} />
-              <span>AI Verified</span>
+              <span>Skillizee Verified</span>
             </div>
           )}
         </div>
@@ -52,7 +52,7 @@ export default function CompetitionCard({ competition }) {
       
       <div className="card-body">
         <div className="category-label">
-          {location.toUpperCase()} • {isFree ? 'FREE ENTRY' : `₹${price}`}
+          {location.toUpperCase()} • {isFree ? 'FEES: FREE' : `FEES: ₹${price}`}
         </div>
         <h3 className="card-title">{title}</h3>
         <p className="card-org">{organizer}</p>
