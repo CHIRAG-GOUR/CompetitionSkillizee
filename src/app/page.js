@@ -162,7 +162,7 @@ export default function Home() {
   const trendingComps = competitions.filter(c => c.isTrending).slice(0, 4);
 
   return (
-    <div className="home-v2">
+    <div className="home-v2" style={{ position: 'relative' }}>
       <ScrollSequence totalFrames={300} />
 
       <div className="main-content-wrapper">
