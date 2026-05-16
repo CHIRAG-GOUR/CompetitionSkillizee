@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { useScroll, useTransform, motion } from 'framer-motion';
+import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 export default function ScrollSequence({ totalFrames = 300 }) {
   const containerRef = useRef(null);
@@ -38,8 +39,13 @@ export default function ScrollSequence({ totalFrames = 300 }) {
   useEffect(() => {
     const render = () => {
       const context = canvasRef.current?.getContext('2d');
-      if (context && images[Math.floor(frameIndex.get())]) {
-        const img = images[Math.floor(frameIndex.get())];
+      const img = images[Math.floor(frameIndex.get())];
+      
+      if (context && img) {
+        if (!img.complete) {
+          img.onload = render;
+          return;
+        }
         
         // Handle responsive canvas sizing
         const canvas = canvasRef.current;
@@ -112,6 +118,24 @@ export default function ScrollSequence({ totalFrames = 300 }) {
             Scroll to discover the system anatomy.
           </motion.p>
         </motion.div>
+
+        <AnimatePresence>
+          <motion.div 
+            style={{ 
+              opacity: useTransform(scrollYProgress, [0, 0.05], [1, 0]),
+              pointerEvents: 'none'
+            }}
+            className="scroll-indicator-v2"
+          >
+            <span className="scroll-text">SCROLL TO EXPLORE</span>
+            <div className="mouse-icon">
+              <div className="wheel"></div>
+            </div>
+            <div className="scroll-arrow-v2">
+              <ArrowRight className="rotate-90" size={16} />
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

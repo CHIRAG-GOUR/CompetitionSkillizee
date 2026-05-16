@@ -350,6 +350,21 @@
   margin: 0 auto 1.5rem;
 }
 
+.success-cta {
+  margin-top: 2rem;
+  background: linear-gradient(135deg, var(--primary-blue, #1e63d0) 0%, #1a56b8 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+  box-shadow: 0 8px 25px rgba(30, 99, 208, 0.35);
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+.success-cta:hover {
+  transform: scale(1.04) translateY(-2px);
+  box-shadow: 0 12px 30px rgba(30, 99, 208, 0.45);
+}
+
 /* Strategy & Winners */
 .strategy-steps {
   display: flex;

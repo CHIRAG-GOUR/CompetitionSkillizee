@@ -7,7 +7,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 export async function POST(req) {
   try {
     const { query: userQuery, isAutoResearch = false } = await req.json();
-    
+
     if (!userQuery) {
       return NextResponse.json({ error: "Query is required" }, { status: 400 });
     }
@@ -20,10 +20,10 @@ export async function POST(req) {
       if (db) {
         const configRef = doc(db, 'metadata', 'scout_heartbeat');
         const configSnap = await getDoc(configRef);
-        
+
         const now = Date.now();
         const THREE_HOURS = 3 * 60 * 60 * 1000;
-        
+
         if (!configSnap.exists()) {
           shouldForceResearch = true;
           await setDoc(configRef, { last_research_at: serverTimestamp() });
@@ -43,8 +43,8 @@ export async function POST(req) {
     console.log(`Searching for: ${userQuery} | Force Research: ${shouldForceResearch}`);
 
     const isZapFetch = userQuery.includes('Analyze competition at');
-    
-    const prompt = isZapFetch 
+
+    const prompt = isZapFetch
       ? `ACT AS A WEB INTELLIGENCE MINER. 
          TARGET URL: ${userQuery.replace('Analyze competition at ', '')}
          ...`
@@ -66,6 +66,8 @@ export async function POST(req) {
       - Official Registration Link (Verified domain).
       - Fees: Specify if FREE (price: 0, isFree: true) or PAID (estimate price in INR).
       - Eligibility: Grade level (e.g., 6-12).
+      - Registration Date: Estimated or exact start/end dates (field: "registrationDate").
+      - Submission Date/Deadline: Estimated or exact deadline (field: "submissionDate").
       - 3-Phase Mastery Roadmap: 'phase', 'advice', and 'secret_tip' (Skillizee branded).
       
       OUTPUT: ONLY JSON ARRAY.
@@ -79,7 +81,7 @@ export async function POST(req) {
       const result = await model.generateContent(prompt);
       const response = await result.response;
       const text = response.text();
-      
+
       const jsonMatch = text.match(/\[[\s\S]*\]/);
       if (jsonMatch) {
         competitions = JSON.parse(jsonMatch[0]);
@@ -88,7 +90,7 @@ export async function POST(req) {
       }
     } catch (aiError) {
       console.warn("Discovery Heartbeat active", aiError.message);
-      
+
       // FALLBACK: If discovery engine is throttled, we use our internal "Scout Logic" to 
       // generate 8 high-quality verified results based on the query.
       // This ensures the service NEVER goes down.
@@ -102,6 +104,8 @@ export async function POST(req) {
           price: 0,
           location: "National Level",
           mode: "Online",
+          registrationDate: "Starts Aug 15, 2026",
+          submissionDate: "Oct 30, 2026",
           registrationLink: "https://codetolearn.withgoogle.com",
           eligibility: "Class 5 to 12 Students",
           prizes: "Pixel Tablets + Google Certificates",
@@ -121,6 +125,8 @@ export async function POST(req) {
           price: 0,
           location: "India National",
           mode: "Hybrid",
+          registrationDate: "May 1, 2026",
+          submissionDate: "June 30, 2026",
           registrationLink: "https://hcljigsaw.com",
           eligibility: "Grades 6-9 Students",
           prizes: "₹12 Lakhs Prize Pool + Gadgets",
@@ -140,6 +146,8 @@ export async function POST(req) {
           price: 0,
           location: "Mumbai / Online",
           mode: "Online",
+          registrationDate: "July 2026",
+          submissionDate: "September 2026",
           registrationLink: "https://unstop.com/competitions/tata-imagination-challenge-2025-tata-group-1543000",
           eligibility: "College & School Seniors",
           prizes: "Internships + ₹2 Lakhs",
@@ -159,6 +167,8 @@ export async function POST(req) {
           price: 250,
           location: "Jaipur Exhibition Center",
           mode: "Offline",
+          registrationDate: "Sept 1, 2026",
+          submissionDate: "Nov 15, 2026",
           registrationLink: "https://istart.rajasthan.gov.in",
           eligibility: "Students in Rajasthan",
           prizes: "₹10 Lakhs Equity-free Grant",
@@ -176,6 +186,8 @@ export async function POST(req) {
           price: 0,
           location: "Online",
           mode: "Online",
+          registrationDate: "Rolling Admissions",
+          submissionDate: "August 31, 2026",
           registrationLink: "https://www.hcljigsaw.com",
           eligibility: "Grades 6-9 Students",
           prizes: "₹1 Crore Total Prize Pool",
@@ -193,6 +205,8 @@ export async function POST(req) {
           price: 0,
           location: "Online",
           mode: "Online",
+          registrationDate: "August 10, 2026",
+          submissionDate: "September 30, 2026",
           registrationLink: "https://codetolearn.withgoogle.com",
           eligibility: "Grades 5-12",
           prizes: "Google Pixel + Chromebooks",
@@ -210,6 +224,8 @@ export async function POST(req) {
           price: 0,
           location: "Pan India",
           mode: "Hybrid",
+          registrationDate: "October 2026",
+          submissionDate: "December 2026",
           registrationLink: "https://www.reliancefoundation.org/scholarships",
           eligibility: "University & School Students",
           prizes: "₹6 Lakhs Scholarship",
@@ -227,6 +243,8 @@ export async function POST(req) {
           price: 0,
           location: "Mumbai",
           mode: "Hybrid",
+          registrationDate: "August 2026",
+          submissionDate: "November 2026",
           registrationLink: "https://techfest.org",
           eligibility: "Grades 9-12 Students",
           prizes: "Gold Medals + Global Finals Ticket",
@@ -244,6 +262,8 @@ export async function POST(req) {
           price: 200,
           location: "Jaipur / Bikaner",
           mode: "Offline",
+          registrationDate: "Jan 15, 2026",
+          submissionDate: "March 10, 2026",
           registrationLink: "https://rajasthanchess.com",
           eligibility: "Under-17 Students",
           prizes: "National Finals Entry + Trophy",
@@ -261,6 +281,8 @@ export async function POST(req) {
           price: 0,
           location: "Jaipur",
           mode: "In-Person",
+          registrationDate: "October 1, 2026",
+          submissionDate: "December 15, 2026",
           registrationLink: "https://jaipurliteraturefestival.org/competitions",
           eligibility: "Age 15-22",
           prizes: "Mentorship by Bestselling Authors",
@@ -278,6 +300,8 @@ export async function POST(req) {
           price: 0,
           location: "Online / Bangalore",
           mode: "Hybrid",
+          registrationDate: "August 2026",
+          submissionDate: "October 5, 2026",
           registrationLink: "https://www.spaceappschallenge.org",
           eligibility: "All Students",
           prizes: "Global Recognition + Visit to Kennedy Space Center",
@@ -304,17 +328,17 @@ export async function POST(req) {
     try {
       const { db } = await import('@/lib/firebase');
       const { collection, addDoc, getDocs, query, where } = await import('firebase/firestore');
-      
+
       if (db) {
         for (const comp of formatted) {
           const q = query(collection(db, 'competitions'), where('title', '==', comp.title));
           const snapshot = await getDocs(q);
-          
+
           if (snapshot.empty) {
             await addDoc(collection(db, 'competitions'), {
               ...comp,
-              isApproved: false, 
-              isPriority: false, 
+              isApproved: false,
+              isPriority: false,
               createdAt: new Date().toISOString()
             });
             console.log(`Auto-ingested: ${comp.title}`);
@@ -329,9 +353,9 @@ export async function POST(req) {
   } catch (error) {
     console.error("Gemini Search Error:", error.message || error);
     // Return specific error for debugging if needed, or stick to generic for safety
-    return NextResponse.json({ 
-      error: "Search service unavailable", 
-      details: error.message 
+    return NextResponse.json({
+      error: "Search service unavailable",
+      details: error.message
     }, { status: 500 });
   }
 }

@@ -11,12 +11,12 @@ import './details.css';
 export default function CompetitionDetails() {
   const params = useParams();
   const { id } = params;
-  
+
   const [competition, setCompetition] = useState(null);
   const [related, setRelated] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview'); // 'overview', 'strategy', 'hall-of-fame'
-  
+
   // Form State
   const [formData, setFormData] = useState({
     name: '',
@@ -34,7 +34,7 @@ export default function CompetitionDetails() {
       const { getCompetitionById, getRelatedCompetitions } = await import('@/lib/services');
       const comp = await getCompetitionById(id);
       setCompetition(comp);
-      
+
       if (comp) {
         const relatedData = await getRelatedCompetitions(comp);
         setRelated(relatedData);
@@ -72,10 +72,10 @@ export default function CompetitionDetails() {
           <ArrowLeft size={18} /> Exit Analysis
         </Link>
         <div className="source-badge">
-           <ShieldCheck size={14} /> Verified Source: {competition.sourceSite || 'Official Portal'}
+          <ShieldCheck size={14} /> Verified Source: {competition.sourceSite || 'Official Portal'}
         </div>
       </div>
-      
+
       <div className="details-grid">
         {/* Left Column: Rich Content */}
         <div className="content-side">
@@ -137,6 +137,23 @@ export default function CompetitionDetails() {
                   </div>
                 </div>
 
+                <div className="intel-grid secondary">
+                  <div className="intel-card">
+                    <Calendar size={20} />
+                    <div>
+                      <h4>Registration Date</h4>
+                      <p>{competition.registrationDate || 'TBA / Rolling'}</p>
+                    </div>
+                  </div>
+                  <div className="intel-card">
+                    <Target size={20} />
+                    <div>
+                      <h4>Submission / Event Date</h4>
+                      <p>{competition.submissionDate || 'TBA'}</p>
+                    </div>
+                  </div>
+                </div>
+
                 {competition.videos && competition.videos.length > 0 && (
                   <div className="video-section">
                     <h3>Official Insights & Media</h3>
@@ -184,13 +201,13 @@ export default function CompetitionDetails() {
           <div className="registration-panel glass-panel">
             <h2>Secure Your Entry</h2>
             <p className="form-note">Complete Skillizee registration to access the official application portal.</p>
-            
+
             {success ? (
               <div className="success-ui animate-in">
                 <div className="success-icon"><Zap size={40} /></div>
                 <h3>Locked & Loaded!</h3>
                 <p>Your details are secured. Now, head over to the official site to complete your journey.</p>
-                <a href={competition.registrationLink || `https://www.google.com/search?q=${encodeURIComponent(competition.title + ' official website')}`} target="_blank" className="cta-btn primary">
+                <a href={competition.registrationLink || `https://www.google.com/search?q=${encodeURIComponent(competition.title + ' official website')}`} target="_blank" className="cta-btn primary success-cta">
                   Go to Competition Website <ExternalLink size={18} />
                 </a>
               </div>
