@@ -57,7 +57,7 @@ export async function POST(req) {
       STRICT CONSTRAINTS:
       1. AUDIENCE: Strictly K-12 Students (School Kids, Grades 1-12).
       2. SCALE: Must be National Level, India-wide, or Major State Level (e.g. Rajasthan iStart).
-      3. VARIETY: Olympiads, Innovation Challenges, Coding Contests, Sports, Creative Writing, and Science Fairs.
+      3. VARIETY: Olympiads, Innovation Challenges, Coding Contests, Sports, Creative Writing, Science Fairs, and Business Strategy/Entrepreneurship competitions.
       4. COUNT: RETURN 10-12 UNIQUE RESULTS.
       
       DATA REQUIREMENTS:
@@ -289,7 +289,64 @@ export async function POST(req) {
           howToWin: [
             { phase: "Narrative", advice: "Build a compelling backstory.", secret_tip: "Emotional resonance wins hearts." }
           ],
-          verification: { source_site: "Verified Scout Engine", trust_score: 95 }
+          verification: { source_site: "Verified Scout Engine", trust_score: 100 }
+        },
+        {
+          title: "The Wharton Global High School Investment Competition",
+          organizer: "Wharton School of the University of Pennsylvania",
+          description: "A world-renowned investment and business strategy challenge for school students.",
+          detailedDescription: "The Wharton Global High School Investment Competition is a free, online investment simulation for high school students (9th to 12th grade) and teachers. Students work in teams to manage a digital portfolio and develop a winning investment strategy.",
+          imageUrl: "https://images.unsplash.com/photo-1611974714851-48206138d731?w=800&q=80",
+          price: 0,
+          location: "Online / Global",
+          mode: "Online",
+          registrationDate: "May 2026",
+          submissionDate: "September 2026",
+          registrationLink: "https://globalyouth.wharton.upenn.edu/investment-competition/",
+          eligibility: "Grades 9-12",
+          prizes: "Wharton Global Youth Certificate + Global Recognition",
+          howToWin: [
+            { phase: "Team Formation", advice: "Build a diverse team with different strengths in research and math.", secret_tip: "Focus on long-term value, not just short-term gains." }
+          ],
+          verification: { source_site: "Wharton Official", trust_score: 100 }
+        },
+        {
+          title: "TiE Young Entrepreneurs (TYE) Global",
+          organizer: "TiE Global",
+          description: "Global entrepreneurship program and pitch competition for high school students.",
+          detailedDescription: "TiE Young Entrepreneurs (TYE) is a Global Program that fosters future entrepreneurs. High school students learn about business basics and work in teams to build a startup idea.",
+          imageUrl: "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=800&q=80",
+          price: 0,
+          location: "Multiple Cities / Online",
+          mode: "Hybrid",
+          registrationDate: "October 2026",
+          submissionDate: "April 2027",
+          registrationLink: "https://tie.org/programs/tye/",
+          eligibility: "Grades 9-12",
+          prizes: "$10,000 Global Prize Pool",
+          howToWin: [
+            { phase: "Customer Validation", advice: "Talk to real potential customers before building anything.", secret_tip: "A strong 'Pivot' story is often better than a perfect first idea." }
+          ],
+          verification: { source_site: "TiE Global Official", trust_score: 100 }
+        },
+        {
+          title: "Diamond Challenge for High School Entrepreneurs",
+          organizer: "University of Delaware",
+          description: "World's premier entrepreneurship competition for high school students.",
+          detailedDescription: "The Diamond Challenge provides a unique opportunity for high school students to learn about entrepreneurship while putting their ideas into action.",
+          imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+          price: 0,
+          location: "Global / Delaware",
+          mode: "Online",
+          registrationDate: "September 2026",
+          submissionDate: "January 2027",
+          registrationLink: "https://diamondchallenge.org/",
+          eligibility: "High School Students",
+          prizes: "$100,000+ Prize Pool",
+          howToWin: [
+            { phase: "Pitch Deck", advice: "Focus on the problem first, then the solution.", secret_tip: "Evidence of 'Traction' wins the jury over everything else." }
+          ],
+          verification: { source_site: "Diamond Challenge Official", trust_score: 100 }
         },
         {
           title: "NASA Space Apps India",

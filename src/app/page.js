@@ -77,7 +77,10 @@ export default function Home() {
         'Government of India National school level hackathons 2026',
         'Rajasthan state school innovation summits 2026 iStart',
         'National level creative writing and arts for K-12 India',
-        'School level robotics and STEM championships India 2026'
+        'School level robotics and STEM championships India 2026',
+        'Best business strategy and entrepreneurship contests for school kids 2026',
+        'National level student startup pitch competitions India K-12',
+        'Economics and investment challenges for Indian school students 2026'
       ];
       const randomTheme = themes[Math.floor(Math.random() * themes.length)];
 
