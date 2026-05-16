@@ -6,7 +6,7 @@ import { collection, query, where, getDocs, addDoc, updateDoc, doc } from 'fireb
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.NEXT_PUBLIC_GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+const model = genAI.getGenerativeModel({ model: "gemini-3-flash-preview" });
 
 /**
  * List of Discovery Portals to scrape
@@ -51,6 +51,8 @@ async function scrapeUrl(url) {
       - mode ("online" or "offline")
       - price (number, 0 if free)
       - registrationLink (exact direct link to registration/details)
+      - registrationDate (deadline for registration)
+      - submissionDate (date of event or submission)
       - imageUrl (try to find the exact image URL from the content or use ${content.ogImage || 'null'})
       
       Rules:
@@ -84,6 +86,8 @@ function normalizeCompetition(raw) {
     isFree: isFree,
     source: raw.source || 'Autonomous Scraper',
     imageUrl: raw.imageUrl || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80',
+    registrationDate: raw.registrationDate || '',
+    submissionDate: raw.submissionDate || '',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { MapPin, IndianRupee, ExternalLink, ShieldCheck, TrendingUp, CheckCircle, Globe, Zap, Trophy, Star } from 'lucide-react';
+import { MapPin, IndianRupee, ExternalLink, ShieldCheck, TrendingUp, CheckCircle, Globe, Zap, Trophy, Star, Calendar } from 'lucide-react';
 import './CompetitionCard.css';
 
 export default function CompetitionCard({ competition }) {
@@ -60,8 +60,17 @@ export default function CompetitionCard({ competition }) {
         
         <div className="card-footer">
           <div className="footer-left">
-            <Globe size={12} className="text-slate-400" />
-            <span>{sourceSite || 'Official Site'}</span>
+            {competition.registrationDate ? (
+              <div className="deadline-box">
+                <Calendar size={12} />
+                <span>Starts/Ends: {competition.registrationDate}</span>
+              </div>
+            ) : (
+              <>
+                <Globe size={12} className="text-slate-400" />
+                <span>{sourceSite || 'Official Site'}</span>
+              </>
+            )}
           </div>
           <div className="footer-right">
             <ExternalLink size={14} className="text-blue-500" />

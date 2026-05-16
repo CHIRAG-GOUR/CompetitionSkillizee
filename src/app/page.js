@@ -22,22 +22,15 @@ export default function Home() {
   const [filterLocation, setFilterLocation] = useState('all');
 
   useEffect(() => {
-    // Data Optimisation: Clear previous session search cache
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('discovery_cache');
-      console.log("Data Optimisation: Previous search cache cleared.");
-    }
-
     async function loadData() {
       const data = await getCompetitions();
       setCompetitions(data);
       setFilteredComps(data);
       setLoading(false);
 
-      const hasFreshData = data.some(c => c.createdAt && new Date(c.createdAt).toDateString() === new Date().toDateString());
-      if (!hasFreshData && data.length < 50) {
-        handleAutoScout();
-      }
+      // Always trigger auto-scout to populate with live results
+      // This ensures the page always has fresh competitions even without Firebase
+      handleAutoScout();
     }
     loadData();
   }, []);
@@ -80,7 +73,10 @@ export default function Home() {
         'School level robotics and STEM championships India 2026',
         'Best business strategy and entrepreneurship contests for school kids 2026',
         'National level student startup pitch competitions India K-12',
-        'Economics and investment challenges for Indian school students 2026'
+        'Economics and investment challenges for Indian school students 2026',
+        'Pitch Karo India 2026 registration and details',
+        'ATL Marathon 2026 themes and submission guide',
+        'Shark Tank style pitch events for high school students India'
       ];
       const randomTheme = themes[Math.floor(Math.random() * themes.length)];
 

@@ -68,7 +68,9 @@ export default function AdminDashboard() {
     howToWin: [],
     videos: [],
     eligibility: '',
-    prizes: ''
+    prizes: '',
+    registrationDate: '',
+    submissionDate: ''
   });
 
   const [newAdmin, setNewAdmin] = useState({
@@ -219,7 +221,9 @@ export default function AdminDashboard() {
           howToWin: data.howToWin || [],
           videos: data.videos || [],
           eligibility: data.eligibility || '',
-          prizes: data.prizes || ''
+          prizes: data.prizes || '',
+          registrationDate: data.registrationDate || '',
+          submissionDate: data.submissionDate || ''
         });
       }
     } catch (err) {
@@ -239,7 +243,8 @@ export default function AdminDashboard() {
         title: '', organizer: '', description: '', detailedDescription: '',
         imageUrl: '', price: 0, isFree: true, location: '', mode: 'online',
         isTrending: false, registrationLink: '', howToWin: [], videos: [],
-        eligibility: '', prizes: ''
+        eligibility: '', prizes: '',
+        registrationDate: '', submissionDate: ''
       });
       setActiveTab('list');
     } catch (err) {
@@ -320,6 +325,10 @@ export default function AdminDashboard() {
                 <div className="form-row">
                   <div className="form-group"><label>Image URL</label><input type="text" value={compData.imageUrl} onChange={e => setCompData({...compData, imageUrl: e.target.value})} /></div>
                   <div className="form-group"><label>Registration Link</label><input type="text" value={compData.registrationLink} onChange={e => setCompData({...compData, registrationLink: e.target.value})} required /></div>
+                </div>
+                <div className="form-row">
+                  <div className="form-group"><label>Registration Deadline</label><input type="text" placeholder="e.g. 15th Aug 2026" value={compData.registrationDate} onChange={e => setCompData({...compData, registrationDate: e.target.value})} /></div>
+                  <div className="form-group"><label>Event / Submission Date</label><input type="text" placeholder="e.g. 20th Oct 2026" value={compData.submissionDate} onChange={e => setCompData({...compData, submissionDate: e.target.value})} /></div>
                 </div>
                 <div className="status-row">
                   <label className="checkbox-wrapper"><input type="checkbox" checked={compData.isTrending} onChange={e => setCompData({...compData, isTrending: e.target.checked})} /> Trending</label>

@@ -130,6 +130,16 @@
   color: var(--text-muted);
 }
 
+.deadline-box {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--primary-blue);
+  background: var(--blue-50);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+}
+
 .footer-right {
   opacity: 0;
   transform: translateX(-10px);
